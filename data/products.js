@@ -656,5 +656,40 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "f2c1a9d4-3e7b-4a2f-9c6e-8b91d4c72a6f",
+    image: "images/products/backpack.jpg",
+    name: "Basics Travel Laptop Backpack",
+    rating: {
+      stars: 4.5,
+      count: 5000
+    },
+    priceCents: 1960,
+    keywords: [
+      "backpack",
+      "bagpack",
+      "travel backpack",
+      "laptop backpack",
+      "travel bag"
+    ]
+  },
+  {
+    id: "9a7d3f21-6b42-4e8a-b1f5-2c8e6d4a90fd",
+    image: "images/products/umbrella.jpg",
+    name: "Windproof Travel Rain Umbrella",
+    rating: {
+      stars: 4.5,
+      count: 6200
+    },
+    priceCents: 1499,
+    keywords: [
+      "umbrella",
+      "rain umbrella",
+      "windproof umbrella",
+      "travel umbrella",
+      "green umbrella "
+    ]
   }
+
 ];
