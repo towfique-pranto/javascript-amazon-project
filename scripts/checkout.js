@@ -100,22 +100,23 @@ document.querySelectorAll('.js-update-link').forEach((link)=>{
   });
 });
 
+
 document.querySelectorAll('.js-save-quantity-link').forEach((link)=>{
-  link.addEventListener('click',()=>{
-    const productId = link.dataset.productId;
-    const container = document.querySelector(`.js-cart-item-container-${productId}`);
-    const newQuantity = Number(container.querySelector('.js-quantity-input').value);
-    if (newQuantity>=0 && newQuantity<1000){
-      updateQuantity(productId, newQuantity);
-      container.querySelector('.js-quantity-label').innerText = newQuantity;
-      updateCheckoutQuantity ();
-      container.classList.remove('is-editing-quantity');
-      container.querySelector('.js-quantity-input').classList.remove('is-invalid');
-    } else{
-      container.querySelector('.js-quantity-input').classList.add('is-invalid');
+  const productId = link.dataset.productId;
+  const container = document.querySelector(`.js-cart-item-container-${productId}`);
+
+  const quantityInput = container.querySelector('.js-quantity-input');
+  quantityInput.addEventListener('keydown', (event)=>{
+    if (event.key === 'Enter'){
+      saveNewQuantity(productId, container);
     }
   });
+
+  link.addEventListener('click',()=>{
+    saveNewQuantity(productId, container);
+  });
 });
+
 
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
   link.addEventListener('click', ()=>{
@@ -131,4 +132,17 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
 function updateCheckoutQuantity (){
   let cartQuantity = calculateCartQuantity();
     document.querySelector('.js-return-to-home').innerText = cartQuantity + ' items';
-  };
+};
+
+function saveNewQuantity(productId, container){
+  const newQuantity = Number(container.querySelector('.js-quantity-input').value);
+  if (newQuantity>=0 && newQuantity<1000){
+    updateQuantity(productId, newQuantity);
+    container.querySelector('.js-quantity-label').innerText = newQuantity;
+    updateCheckoutQuantity ();
+    container.classList.remove('is-editing-quantity');
+    container.querySelector('.js-quantity-input').classList.remove('is-invalid');
+  } else{
+    container.querySelector('.js-quantity-input').classList.add('is-invalid');
+  }
+};
