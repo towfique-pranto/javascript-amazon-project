@@ -226,3 +226,4 @@
 {
   display: none;
 }
+.is-invalid { border: 2px solid red; }
