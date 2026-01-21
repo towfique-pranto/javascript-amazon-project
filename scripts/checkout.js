@@ -136,7 +136,7 @@ function updateCheckoutQuantity (){
 
 function saveNewQuantity(productId, container){
   const newQuantity = Number(container.querySelector('.js-quantity-input').value);
-  if (newQuantity>=0 && newQuantity<1000){
+  if (newQuantity>0 && newQuantity<1000){
     updateQuantity(productId, newQuantity);
     container.querySelector('.js-quantity-label').innerText = newQuantity;
     updateCheckoutQuantity ();
