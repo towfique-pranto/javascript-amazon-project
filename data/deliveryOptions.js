@@ -22,7 +22,7 @@ export function getDeliveryOption(deliveryOptionId){
         deliveryOption = option;
       }
     });
-    return deliveryOption || deliveryOption[0];
+    return deliveryOption || deliveryOptions[0];
 }
 function isWeekend(date) {
   const dayOfWeek = date.format('dddd');
