@@ -33,7 +33,6 @@ class Cart {
       if (productId === cartItem.productId) {
         matchingItem = cartItem;
       }
-      if (!matchingItem) { return };
     });
 
     if (matchingItem) {
