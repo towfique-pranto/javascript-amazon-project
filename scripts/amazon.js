@@ -1,10 +1,10 @@
-import {cart, addToCart, calculateCartQuantity} from '../data/cart.js';
+import { cart, addToCart, calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
 let productsHTML = '';
 
-products.forEach((product)=>{
+products.forEach((product) => {
   productsHTML += `
   <div class="product-container">
           <div class="product-image-container">
@@ -21,12 +21,14 @@ products.forEach((product)=>{
           <div class="product-rating-container">
             <img
               class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png"
+              src="${product.getStarsUrl()}"
             />
             <div class="product-rating-count link-primary">${product.rating.count}</div>
           </div>
 
-          <div class="product-price">$${formatCurrency(product.priceCents)}</div>
+          <div class="product-price">
+            ${product.getPrice()}
+          </div>
 
           <div class="product-quantity-container">
             <select class="js-quantity-selector-${product.id}">
@@ -59,16 +61,16 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 updateCartQuantity();
 
-function updateCartQuantity (){
+function updateCartQuantity() {
   let cartQuantity = calculateCartQuantity();
   document.querySelector('.js-cart-quantity').innerText = cartQuantity;
-  };
+};
 
-  
+
 
 const allTimeoutId = {};
-document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-  button.addEventListener('click',()=>{
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  button.addEventListener('click', () => {
     const productId = button.dataset.productId;
     const productAmount = document.querySelector(`.js-quantity-selector-${productId}`).value;
     const quantity = Number(productAmount);
@@ -78,10 +80,10 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 
     const addedMessage = document.querySelector(`.js-${productId}-added`);
     addedMessage.classList.add('view-added-to-cart');
-    
+
     clearTimeout(allTimeoutId[productId]);
 
-    const timeoutId = setTimeout(()=>{
+    const timeoutId = setTimeout(() => {
       addedMessage.classList.remove('view-added-to-cart');
     }, 2000);
     allTimeoutId[productId] = timeoutId;
