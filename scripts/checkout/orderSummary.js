@@ -1,4 +1,4 @@
-import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
@@ -10,7 +10,7 @@ import { calculateDeliveryDate } from '../../data/deliveryOptions.js';
 export function renderOrderSummary() {
   let cartPageHTML = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const productId = cartItem.productId;
 
     const matchingProduct = getProduct(productId);
@@ -136,7 +136,7 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
-      removeFromCart(productId);
+      cart.removeFromCart(productId);
 
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
@@ -150,7 +150,7 @@ export function renderOrderSummary() {
   function saveNewQuantity(productId, container) {
     const newQuantity = Number(container.querySelector('.js-quantity-input').value);
     if (newQuantity > 0 && newQuantity < 1000) {
-      updateQuantity(productId, newQuantity);
+      cart.updateQuantity(productId, newQuantity);
       container.querySelector('.js-quantity-label').innerText = newQuantity;
       renderCheckoutHeader();
       container.classList.remove('is-editing-quantity');
@@ -163,7 +163,7 @@ export function renderOrderSummary() {
   document.querySelectorAll('.js-delivery-option').forEach((element) => {
     element.addEventListener('click', () => {
       const { productId, deliveryOptionId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
     });
