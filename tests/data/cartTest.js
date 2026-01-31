@@ -1,4 +1,11 @@
 import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
+import { loadProducts } from "../../data/products.js";
+
+beforeAll((done) => {
+  loadProducts(() => {
+    done();
+  });
+});
 
 describe('test suite: addToCart', () => {
   it('adds an existing product to the cart', () => {
